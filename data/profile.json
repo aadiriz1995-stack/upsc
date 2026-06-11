@@ -1,8 +1,13 @@
 {
   "name": "HVP",
+  "title": "Aspirant",
   "level": 1,
   "xp": 0,
   "missionStreak": 0,
   "readingStreak": 0,
-  "strategicRecoveryRemaining": 3
+  "questionsWritten": 0,
+  "mcqsSolved": 0,
+  "lecturesCompleted": 0,
+  "strategicRecoveryRemaining": 3,
+  "missionStartDate": "2026-06-11"
 }
