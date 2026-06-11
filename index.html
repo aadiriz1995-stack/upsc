@@ -1,24 +1,83 @@
-
-<!doctype html><html><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Track2Crack Next Release</title>
-<link rel="stylesheet" href="css/style.css"></head>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Track2Crack Next Release</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-<aside class="side"><h2>🎯 Track2Crack</h2>
-<button onclick="saveSettings()">Save Settings</button>
-</aside>
-<main>
-<h1>Mission Control</h1>
-<div id="summary"></div>
-<section class="cfg">
-<label>Priority 1 <input id="p1"></label>
-<label>Priority 2 <input id="p2"></label>
-<label>Priority 3 <input id="p3"></label>
-</section>
-<h2>Today's Planner</h2>
-<ul id="tasks"></ul>
-</main>
-<script src="js/storage.js"></script>
-<script src="js/planner.js"></script>
-<script src="js/app.js"></script>
-</body></html>
+  <aside class="side">
+    <div class="brand">
+      <span class="logo">🎯</span>
+      <div>
+        <h2>Track2Crack</h2>
+        <p>Daily UPSC mission control</p>
+      </div>
+    </div>
+
+    <nav class="side-actions" aria-label="Planner actions">
+      <button id="saveSettingsBtn" type="button">Save Settings</button>
+      <button id="resetTodayBtn" type="button" class="secondary">Reset Today</button>
+      <button id="exportDataBtn" type="button" class="secondary">Export Data</button>
+      <label class="import-btn secondary" for="importDataInput">Import Data</label>
+      <input id="importDataInput" type="file" accept="application/json" hidden>
+    </nav>
+  </aside>
+
+  <main>
+    <header class="hero">
+      <div>
+        <p id="todayLabel" class="eyebrow"></p>
+        <h1>Mission Control</h1>
+        <p id="summary" class="summary"></p>
+      </div>
+      <div class="progress-card" aria-live="polite">
+        <strong id="progressPercent">0%</strong>
+        <span id="progressText">0 of 0 tasks complete</span>
+        <div class="progress-bar" aria-hidden="true"><span id="progressFill"></span></div>
+      </div>
+    </header>
+
+    <section class="card cfg" aria-labelledby="settingsTitle">
+      <h2 id="settingsTitle">Subject Priorities</h2>
+      <div class="grid">
+        <label>Priority 1 <input id="p1" type="text" placeholder="e.g., Polity"></label>
+        <label>Priority 2 <input id="p2" type="text" placeholder="e.g., Modern History"></label>
+        <label>Priority 3 <input id="p3" type="text" placeholder="e.g., Economy"></label>
+      </div>
+      <p class="hint">These priorities are used to auto-build your daily lecture/study blocks.</p>
+    </section>
+
+    <section class="card" aria-labelledby="plannerTitle">
+      <div class="section-head">
+        <div>
+          <h2 id="plannerTitle">Today's Planner</h2>
+          <p class="hint">Tick tasks as you complete them. Progress is saved for today.</p>
+        </div>
+        <button id="regenerateBtn" type="button" class="secondary">Regenerate Plan</button>
+      </div>
+      <ul id="tasks" class="task-list"></ul>
+    </section>
+
+    <section class="card" aria-labelledby="customTaskTitle">
+      <h2 id="customTaskTitle">Add Custom Task</h2>
+      <form id="customTaskForm" class="add-task-form">
+        <input id="customTaskInput" type="text" placeholder="e.g., Revise Laxmikanth Chapter 5" maxlength="120" required>
+        <button type="submit">Add Task</button>
+      </form>
+    </section>
+
+    <section class="card compact" aria-labelledby="weeklyTitle">
+      <h2 id="weeklyTitle">Weekend Rules</h2>
+      <p class="hint">Saturday adds CA and newspaper revision. Sunday adds GS revision, weekly review, and a one-hour test.</p>
+    </section>
+  </main>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/planner.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

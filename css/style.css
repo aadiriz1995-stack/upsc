@@ -1,8 +1,126 @@
-
-body{margin:0;font-family:Segoe UI;background:#0b1220;color:#eef;display:flex}
-.side{width:220px;background:#111827;padding:20px;min-height:100vh}
-main{flex:1;padding:24px}
-label{display:block;margin:8px 0}
-input{padding:6px;width:250px}
-button{padding:10px 14px}
-li{margin:8px 0}
+:root{
+  --bg:#0b1220;
+  --panel:#111827;
+  --card:#162033;
+  --soft:#22314d;
+  --text:#eef4ff;
+  --muted:#aebbd3;
+  --line:#2b3b5d;
+  --accent:#5eead4;
+  --accent-strong:#14b8a6;
+  --danger:#fb7185;
+  --shadow:0 18px 45px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Segoe UI,Roboto,Arial,sans-serif;
+  background:radial-gradient(circle at top left,#172340 0,#0b1220 48%,#080d18 100%);
+  color:var(--text);
+  display:flex;
+}
+.side{
+  width:260px;
+  background:rgba(17,24,39,.92);
+  padding:24px;
+  min-height:100vh;
+  border-right:1px solid var(--line);
+  position:sticky;
+  top:0;
+}
+.brand{display:flex;gap:12px;align-items:center;margin-bottom:28px}
+.logo{font-size:32px}
+h1,h2,p{margin-top:0}
+h1{font-size:38px;margin-bottom:6px}
+h2{font-size:20px;margin-bottom:14px}
+.brand h2{margin:0;font-size:22px}
+.brand p,.hint,.summary,.eyebrow{color:var(--muted)}
+.brand p{margin:4px 0 0;font-size:13px}
+main{flex:1;padding:32px;max-width:1100px}
+.hero{display:flex;gap:24px;justify-content:space-between;align-items:stretch;margin-bottom:22px}
+.eyebrow{text-transform:uppercase;letter-spacing:.08em;font-weight:700;font-size:12px;margin-bottom:6px}
+.card,.progress-card{
+  background:rgba(22,32,51,.88);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+.progress-card{min-width:260px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.progress-card strong{font-size:40px;line-height:1;color:var(--accent)}
+.progress-card span{color:var(--muted)}
+.progress-bar{height:10px;background:#0d1628;border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.progress-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent-strong),var(--accent));transition:width .25s ease}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:16px}
+label{display:block;color:var(--muted);font-size:14px;font-weight:600}
+input{
+  margin-top:8px;
+  padding:11px 12px;
+  width:100%;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#0d1628;
+  color:var(--text);
+  outline:none;
+}
+input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(94,234,212,.12)}
+button,.import-btn{
+  border:0;
+  border-radius:10px;
+  padding:11px 14px;
+  background:var(--accent-strong);
+  color:#04201c;
+  cursor:pointer;
+  font-weight:800;
+  text-align:center;
+  display:inline-block;
+}
+button:hover,.import-btn:hover{filter:brightness(1.08)}
+button.secondary,.import-btn.secondary{background:var(--soft);color:var(--text);border:1px solid var(--line)}
+button.danger{background:rgba(251,113,133,.14);color:var(--danger);border:1px solid rgba(251,113,133,.35)}
+.side-actions{display:flex;flex-direction:column;gap:10px}
+.section-head{display:flex;gap:16px;justify-content:space-between;align-items:center}
+.task-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.task-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:13px 14px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(13,22,40,.72);
+}
+.task-item input{width:auto;margin:0;accent-color:var(--accent-strong);transform:scale(1.2)}
+.task-title{flex:1;line-height:1.35}
+.task-item.done .task-title{text-decoration:line-through;color:var(--muted)}
+.task-meta{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 8px}
+.icon-btn{padding:7px 9px;font-size:13px}
+.add-task-form{display:flex;gap:12px}
+.add-task-form input{margin:0;flex:1}
+.compact{padding-bottom:16px}
+#toast{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  padding:12px 14px;
+  border-radius:12px;
+  background:#07111f;
+  border:1px solid var(--line);
+  color:var(--text);
+  opacity:0;
+  transform:translateY(12px);
+  transition:all .2s ease;
+  pointer-events:none;
+}
+#toast.show{opacity:1;transform:translateY(0)}
+@media (max-width:800px){
+  body{display:block}
+  .side{position:relative;width:auto;min-height:auto}
+  main{padding:20px}
+  .hero,.section-head,.add-task-form{display:block}
+  .progress-card{min-width:0}
+  .grid{grid-template-columns:1fr}
+  button,.import-btn{width:100%;margin-top:10px}
+}
