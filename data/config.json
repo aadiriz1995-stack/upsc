@@ -1,10 +1,1 @@
-{
-  "missionDays": 150,
-  "examDate": "2027-05-23",
-  "dailyMinimumLectures": 2,
-  "mandatoryTasks": [
-    "Revision",
-    "MCQ",
-    "Answer Writing"
-  ]
-}
+{"missionDays":150,"examDate":"2027-05-23"}
