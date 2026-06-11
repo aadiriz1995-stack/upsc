@@ -1,27 +1,11 @@
-Track2Crack Mission Control Release
+Track2Crack v1.7 data notes
 
-Storage model:
-- This build is a static browser app.
-- All data is stored in localStorage under t2c_database_v5.
-- Export Data creates a JSON backup.
-- Import Data restores the exported JSON.
+The application uses browser localStorage as the instant working database.
 
-Implemented modules:
-1. Mission Control Dashboard
-2. Lectures Module with dynamic weighted progress
-3. Intelligent Planner Engine with priority lecture selection
-4. Current Affairs Management System
-5. Revision Engine with spaced repetition
-6. AI Mentor workspace and future AI placeholders
-7. Analytics Dashboard
-8. Gamification System
-9. Settings Engine
+v1.7 adds Google Drive database sync:
+- Configure it in Settings > Google Drive Database.
+- The Drive database is one JSON file, usually track2crack-database.json.
+- Run the app through http://localhost:8080 for Google sign-in; opening index.html directly as file:// will not allow OAuth.
+- See GOOGLE_DRIVE_SETUP.md for setup steps.
 
-AI Mentor limitation:
-- The offline app stores PDFs, screenshots, notes, and articles.
-- Pasted text can be summarized with a lightweight local heuristic.
-- True PDF/image analysis, high-quality MCQ generation, and conversational AI require an API/backend integration later.
-
-Future cloud storage:
-- Google Drive/Firebase/Supabase can replace or extend js/storage.js.
-- The rest of the app uses the same lecture/article/revision/planner data model.
+Manual JSON Export/Import remains available from the sidebar and Settings.

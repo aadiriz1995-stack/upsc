@@ -45,6 +45,7 @@ function refresh(route = currentRoute) {
   db = loadDb();
   currentRoute = route;
   setHeader(route);
+  if (typeof updateGoogleDriveMiniStatus === 'function') updateGoogleDriveMiniStatus(db);
   qsa('.side-menu a').forEach((a) => a.classList.toggle('active', a.dataset.route === route));
   if (route === 'lectures') renderLectures();
   else if (route === 'planner') renderPlanner();
@@ -146,6 +147,7 @@ function renderDashboard() {
       ${metric('Mission Score', `${missionScore(db)}/100`, 'daily + syllabus + streak')}
       ${metric('Daily Completion', `${daily.percent}%`, `${daily.complete}/${daily.total} tasks`)}
       ${metric('Overall Syllabus Progress', `${overallSyllabusProgress(db)}%`, `${db.lectures.length} lectures tracked`)}
+      ${metric('Database', db.config.googleDriveFileId ? 'Google Drive' : 'Local', db.config.googleDriveLastSyncAt ? `Last sync ${new Date(db.config.googleDriveLastSyncAt).toLocaleString()}` : 'Not synced yet')}
     </section>
 
     <section class="grid-2">
@@ -661,7 +663,36 @@ function renderProductivity(days) { const start = addDays(todayKey(), -(days-1))
 
 function renderSettings() {
   const c = db.config;
-  appHtml(`<section class="card"><h2>Settings Engine</h2><p class="hint">These values drive planner generation, dashboard metrics, analytics and recommendations.</p><form id="settingsForm" class="grid"><label>Priority 1 Subject<input id="setP1" value="${escapeHtml(c.priority1)}"></label><label>Priority 2 Subject<input id="setP2" value="${escapeHtml(c.priority2)}"></label><label>Priority 3 Subject<input id="setP3" value="${escapeHtml(c.priority3)}"></label><label>Optional Subject<input id="setOptional" value="${escapeHtml(c.optionalSubject)}"></label><label>Exam Date<input id="setExamDate" type="date" value="${escapeHtml(c.examDate)}"></label><label>Mission Start Date<input id="setMissionStart" type="date" value="${escapeHtml(c.missionStartDate)}"></label><label>Mission Length<input id="setMissionLength" type="number" min="1" value="${Number(c.missionLength)}"></label><label>Daily Lecture Target<input id="setLectureTarget" type="number" min="0" value="${Number(c.dailyLectureTarget)}"></label><label>Daily MCQ Target<input id="setMcqTarget" type="number" min="0" value="${Number(c.dailyMcqTarget)}"></label><label>Daily Answer Writing Target<input id="setAnswerTarget" type="number" min="0" value="${Number(c.dailyAnswerTarget)}"></label><label>Recovery Tokens<input id="setRecovery" type="number" min="0" value="${Number(c.recoveryTokens)}"></label><button type="submit">Save Settings</button></form></section>`);
+  appHtml(`
+    <section class="card">
+      <h2>Settings Engine</h2>
+      <p class="hint">These values drive planner generation, dashboard metrics, analytics and recommendations.</p>
+      <form id="settingsForm" class="grid">
+        <label>Priority 1 Subject<input id="setP1" value="${escapeHtml(c.priority1)}"></label>
+        <label>Priority 2 Subject<input id="setP2" value="${escapeHtml(c.priority2)}"></label>
+        <label>Priority 3 Subject<input id="setP3" value="${escapeHtml(c.priority3)}"></label>
+        <label>Optional Subject<input id="setOptional" value="${escapeHtml(c.optionalSubject)}"></label>
+        <label>Exam Date<input id="setExamDate" type="date" value="${escapeHtml(c.examDate)}"></label>
+        <label>Mission Start Date<input id="setMissionStart" type="date" value="${escapeHtml(c.missionStartDate)}"></label>
+        <label>Mission Length<input id="setMissionLength" type="number" min="1" value="${Number(c.missionLength)}"></label>
+        <label>Daily Lecture Target<input id="setLectureTarget" type="number" min="0" value="${Number(c.dailyLectureTarget)}"></label>
+        <label>Daily MCQ Target<input id="setMcqTarget" type="number" min="0" value="${Number(c.dailyMcqTarget)}"></label>
+        <label>Daily Answer Writing Target<input id="setAnswerTarget" type="number" min="0" value="${Number(c.dailyAnswerTarget)}"></label>
+        <label>Recovery Tokens<input id="setRecovery" type="number" min="0" value="${Number(c.recoveryTokens)}"></label>
+        <button type="submit">Save Settings</button>
+      </form>
+    </section>
+    ${typeof googleDriveSettingsHtml === 'function' ? googleDriveSettingsHtml(db) : ''}
+    <section class="card">
+      <h2>Database Utilities</h2>
+      <p class="hint">Use JSON export/import for a manual backup. Use Google Drive Database above for cloud sync.</p>
+      <div class="section-actions">
+        <button type="button" class="secondary" id="settingsExportBtn">Export JSON Backup</button>
+        <label class="import-btn secondary" for="settingsImportInput">Import JSON Backup</label>
+        <input id="settingsImportInput" type="file" accept="application/json" hidden>
+      </div>
+    </section>
+  `);
   $('settingsForm').addEventListener('submit', (event) => {
     event.preventDefault();
     db.config = { ...db.config, priority1: $('setP1').value.trim(), priority2: $('setP2').value.trim(), priority3: $('setP3').value.trim(), optionalSubject: $('setOptional').value.trim(), examDate: $('setExamDate').value, missionStartDate: $('setMissionStart').value || todayKey(), missionLength: Number($('setMissionLength').value || 150), dailyLectureTarget: Number($('setLectureTarget').value || 0), dailyMcqTarget: Number($('setMcqTarget').value || 0), dailyAnswerTarget: Number($('setAnswerTarget').value || 0), recoveryTokens: Number($('setRecovery').value || 0) };
@@ -670,6 +701,9 @@ function renderSettings() {
     showToast('Settings saved. Planner, dashboard, analytics and recommendations updated.');
     refresh('settings');
   });
+  $('settingsExportBtn')?.addEventListener('click', downloadJson);
+  $('settingsImportInput')?.addEventListener('change', (event) => importJson(event.target.files[0]));
+  if (typeof bindGoogleDriveSettings === 'function') bindGoogleDriveSettings(() => refresh('settings'));
 }
 
 function init() {

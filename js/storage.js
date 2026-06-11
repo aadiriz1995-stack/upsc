@@ -16,7 +16,14 @@ const DEFAULT_CONFIG = {
   dailyMcqTarget: 30,
   dailyAnswerTarget: 2,
   recoveryTokens: 3,
-  levelSize: 500
+  levelSize: 500,
+  googleDriveClientId: '',
+  googleDriveFolderId: '',
+  googleDriveFileId: '',
+  googleDriveDatabaseName: 'track2crack-database.json',
+  googleDriveAutoSync: false,
+  googleDriveLastSyncAt: '',
+  googleDriveLastDirection: ''
 };
 
 function todayKey(date = new Date()) {
@@ -43,7 +50,7 @@ function safeJsonParse(raw, fallback) {
 function emptyDb() {
   return {
     app: 'Track2Crack',
-    version: 5,
+    version: 6,
     config: { ...DEFAULT_CONFIG },
     lectures: [],
     articles: [],
@@ -73,6 +80,13 @@ function loadDb() {
 function saveDb(db) {
   const normalized = normalizeDb(db);
   localStorage.setItem(T2C_KEYS.db, JSON.stringify(normalized));
+  try {
+    if (typeof window !== 'undefined' && !window.T2C_SUPPRESS_DB_EVENT) {
+      window.dispatchEvent(new CustomEvent('t2c:db-saved', { detail: { db: normalized } }));
+    }
+  } catch (error) {
+    console.warn('Track2Crack: save event skipped.', error);
+  }
   return normalized;
 }
 
@@ -236,4 +250,14 @@ function exportAllData() {
 function importAllData(payload) {
   if (!payload || payload.app !== 'Track2Crack') throw new Error('This file is not a valid Track2Crack export.');
   saveDb(payload);
+}
+
+function mergeGoogleDriveConfig(targetDb, sourceDb) {
+  const fields = ['googleDriveClientId','googleDriveFolderId','googleDriveFileId','googleDriveDatabaseName','googleDriveAutoSync','googleDriveLastSyncAt','googleDriveLastDirection'];
+  const next = normalizeDb(targetDb);
+  const sourceConfig = sourceDb?.config || {};
+  fields.forEach((field) => {
+    if (sourceConfig[field] !== undefined && sourceConfig[field] !== '') next.config[field] = sourceConfig[field];
+  });
+  return next;
 }

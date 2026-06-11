@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Track2Crack Mission Control</title>
+  <title>Track2Crack v1.7 Mission Control</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
       <span class="logo">🎯</span>
       <div>
         <h2>Track2Crack</h2>
-        <p>Mission 150 UPSC control room</p>
+        <p>Mission 150 UPSC control room · v1.7</p>
       </div>
     </div>
 
@@ -31,6 +31,7 @@
       <button id="exportDataBtn" type="button" class="secondary">Export Data</button>
       <label class="import-btn secondary" for="importDataInput">Import Data</label>
       <input id="importDataInput" type="file" accept="application/json" hidden>
+      <div id="cloudMiniStatus" class="cloud-mini" title="Google Drive database status">Database: Local only</div>
     </div>
   </aside>
 
@@ -56,7 +57,9 @@
 
   <script src="js/storage.js"></script>
   <script src="js/planner.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="js/gamification.js"></script>
+  <script src="js/drive.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
