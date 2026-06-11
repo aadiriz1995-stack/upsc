@@ -1,6 +1,5 @@
 @echo off
-cd /d "%~dp0"
-echo Starting Track2Crack v1.7 at http://localhost:8080
-echo Keep this window open while using Google Drive sync.
+cd /d %~dp0
+echo Track2Crack v1.8 local server starting at http://localhost:8080
 python -m http.server 8080
 pause

@@ -45,7 +45,7 @@ function refresh(route = currentRoute) {
   db = loadDb();
   currentRoute = route;
   setHeader(route);
-  if (typeof updateGoogleDriveMiniStatus === 'function') updateGoogleDriveMiniStatus(db);
+  if (typeof updateFirebaseMiniStatus === 'function') updateFirebaseMiniStatus(db);
   qsa('.side-menu a').forEach((a) => a.classList.toggle('active', a.dataset.route === route));
   if (route === 'lectures') renderLectures();
   else if (route === 'planner') renderPlanner();
@@ -147,7 +147,7 @@ function renderDashboard() {
       ${metric('Mission Score', `${missionScore(db)}/100`, 'daily + syllabus + streak')}
       ${metric('Daily Completion', `${daily.percent}%`, `${daily.complete}/${daily.total} tasks`)}
       ${metric('Overall Syllabus Progress', `${overallSyllabusProgress(db)}%`, `${db.lectures.length} lectures tracked`)}
-      ${metric('Database', db.config.googleDriveFileId ? 'Google Drive' : 'Local', db.config.googleDriveLastSyncAt ? `Last sync ${new Date(db.config.googleDriveLastSyncAt).toLocaleString()}` : 'Not synced yet')}
+      ${metric('Database', db.config.firebaseLastSyncAt ? 'Firebase Cloud' : 'Local', db.config.firebaseLastSyncAt ? `Last sync ${new Date(db.config.firebaseLastSyncAt).toLocaleString()}` : 'Not synced yet')}
     </section>
 
     <section class="grid-2">
@@ -682,10 +682,10 @@ function renderSettings() {
         <button type="submit">Save Settings</button>
       </form>
     </section>
-    ${typeof googleDriveSettingsHtml === 'function' ? googleDriveSettingsHtml(db) : ''}
+    ${typeof firebaseCloudSettingsHtml === 'function' ? firebaseCloudSettingsHtml(db) : ''}
     <section class="card">
       <h2>Database Utilities</h2>
-      <p class="hint">Use JSON export/import for a manual backup. Use Google Drive Database above for cloud sync.</p>
+      <p class="hint">Use JSON export/import for a manual backup. Use Firebase Cloud Sync above for multi-device access.</p>
       <div class="section-actions">
         <button type="button" class="secondary" id="settingsExportBtn">Export JSON Backup</button>
         <label class="import-btn secondary" for="settingsImportInput">Import JSON Backup</label>
@@ -703,11 +703,11 @@ function renderSettings() {
   });
   $('settingsExportBtn')?.addEventListener('click', downloadJson);
   $('settingsImportInput')?.addEventListener('change', (event) => importJson(event.target.files[0]));
-  if (typeof bindGoogleDriveSettings === 'function') bindGoogleDriveSettings(() => refresh('settings'));
+  if (typeof bindFirebaseCloudSettings === 'function') bindFirebaseCloudSettings(() => refresh('settings'));
 }
 
 function init() {
-  ['app','pageTitle','pageSummary','todayLabel','dailyPercent','dailyText','dailyFill','toast','modalRoot','exportDataBtn','importDataInput'].forEach((id) => { els[id] = $(id); });
+  ['app','pageTitle','pageSummary','todayLabel','dailyPercent','dailyText','dailyFill','toast','modalRoot','exportDataBtn','importDataInput','firebaseStatus'].forEach((id) => { els[id] = $(id); });
   db = loadDb();
   ensurePlannerForDate(db, todayKey());
   els.exportDataBtn.addEventListener('click', downloadJson);

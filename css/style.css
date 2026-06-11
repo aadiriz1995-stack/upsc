@@ -30,8 +30,46 @@ label{display:block;margin:8px 0;color:var(--muted);font-size:13px}input,select,
 .bar-list{display:flex;flex-direction:column;gap:10px}.bar-row{display:grid;grid-template-columns:160px 1fr 56px;gap:10px;align-items:center}.mini-bar{height:10px;background:#0f172a;border-radius:999px;overflow:hidden}.mini-bar span{height:100%;display:block;background:var(--accent)}.heatmap{display:grid;grid-template-columns:repeat(14,1fr);gap:4px}.heat{height:22px;border-radius:5px;background:#101827;border:1px solid var(--line)}.heat.on{background:#245b70}.heat.strong{background:#4aa4c7}.badge-grid{display:flex;gap:8px;flex-wrap:wrap}.badge{padding:8px 10px;border-radius:999px;background:#11243a;border:1px solid var(--line);color:var(--muted)}.badge.unlocked{background:#143426;color:var(--accent-2);border-color:#285e45}
 #toast{position:fixed;right:20px;bottom:20px;background:#101827;border:1px solid var(--line);padding:12px 14px;border-radius:12px;color:var(--text);transform:translateY(120px);transition:.2s;z-index:60;max-width:360px}#toast.show{transform:translateY(0)}
 @media(max-width:900px){body{display:block}.side{position:static;width:auto;min-height:0}.side-menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr))}.hero,.two-col{display:block}.progress-card{margin-top:12px}.filters{grid-template-columns:1fr}.task-item{grid-template-columns:28px 1fr}.task-meta,.drag-handle{grid-column:2}}
-/* v1.7 Google Drive database sync additions */
+/* Legacy cloud form helpers */
 .cloud-mini{margin-top:6px;padding:9px 10px;border-radius:10px;background:#0f172a;border:1px solid var(--line);color:var(--muted);font-size:12px;line-height:1.35}
 .warning-box{padding:12px 14px;border-radius:12px;border:1px solid #7c5e1b;background:#2f2511;color:#fde68a;margin:10px 0}
 .warning-box code{background:#111827;color:#fff;padding:2px 5px;border-radius:5px}
 .grid .wide{grid-column:1/-1}.checkline{display:flex;align-items:center;gap:8px;color:var(--text);margin-top:28px}.checkline input{width:auto}.cloud-actions{margin:14px 0}.cloud-actions button{min-width:150px}
+
+/* v1.8 Firebase cloud status */
+.cloud-status {
+  margin: 12px 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 12px;
+  color: var(--muted);
+  background: rgba(255,255,255,.04);
+  font-size: 12px;
+}
+.cloud-status.ok {
+  color: #d7ffe5;
+  border-color: rgba(85, 214, 124, .35);
+  background: rgba(85, 214, 124, .12);
+}
+.cloud-status.error {
+  color: #ffd8d8;
+  border-color: rgba(255, 92, 92, .35);
+  background: rgba(255, 92, 92, .12);
+}
+.cloud-card code {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255,255,255,.08);
+}
+.inline-check {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+}
+.warning {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 193, 7, .12);
+  border: 1px solid rgba(255, 193, 7, .3);
+}

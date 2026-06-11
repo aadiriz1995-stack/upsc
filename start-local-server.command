@@ -1,5 +1,4 @@
 #!/bin/sh
 cd "$(dirname "$0")"
-echo "Starting Track2Crack v1.7 at http://localhost:8080"
-echo "Keep this terminal open while using Google Drive sync."
+echo "Track2Crack v1.8 local server starting at http://localhost:8080"
 python3 -m http.server 8080

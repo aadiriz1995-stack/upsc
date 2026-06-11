@@ -1,14 +1,25 @@
-Track2Crack v1.7
+Track2Crack v1.8 — Firebase Cloud Sync Release
 
-Primary change: Google Drive database sync-ready dynamic prototype.
+Core change:
+- Replaced Google Drive live database approach with Firebase Authentication + Cloud Firestore.
+- Uses Email/Password login for easier setup.
+- Data is stored per user at users/{uid}/app/state.
+- Designed for phone, office PC and home PC access using the same hosted Firebase URL.
 
 Included:
-- Existing v1.6 Mission Control modules retained.
-- Google Drive database configuration in Settings.
-- OAuth Client ID + Drive Folder ID setup.
-- Create / Update Drive DB.
-- Load DB from Drive.
-- Check Drive DB.
-- Auto-sync after changes once signed in.
-- Local server launch scripts for OAuth compatibility.
-- Setup guide in GOOGLE_DRIVE_SETUP.md.
+- Mission Control Dashboard
+- Lectures Module
+- Planner Engine
+- Current Affairs Management
+- Revision Engine
+- AI Mentor workspace
+- Analytics Dashboard
+- Gamification System
+- Settings Engine
+- Firebase Cloud Sync controls
+- JSON export/import backup
+- Firebase Hosting config
+- Firestore security rules
+
+Limitations:
+- PDF/screenshot/image upload binaries are not synced in v1.8. Structured records sync; file storage can be added later.

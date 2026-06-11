@@ -23,7 +23,11 @@ const DEFAULT_CONFIG = {
   googleDriveDatabaseName: 'track2crack-database.json',
   googleDriveAutoSync: false,
   googleDriveLastSyncAt: '',
-  googleDriveLastDirection: ''
+  googleDriveLastDirection: '',
+  firebaseAutoSync: false,
+  firebaseLastSyncAt: '',
+  firebaseLastDirection: '',
+  firebaseUserEmail: ''
 };
 
 function todayKey(date = new Date()) {
@@ -50,7 +54,7 @@ function safeJsonParse(raw, fallback) {
 function emptyDb() {
   return {
     app: 'Track2Crack',
-    version: 6,
+    version: 8,
     config: { ...DEFAULT_CONFIG },
     lectures: [],
     articles: [],

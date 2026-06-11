@@ -1,11 +1,10 @@
-Track2Crack v1.7 data notes
+Track2Crack v1.8 data notes
 
-The application uses browser localStorage as the instant working database.
+This folder is reserved for optional import/export files.
 
-v1.7 adds Google Drive database sync:
-- Configure it in Settings > Google Drive Database.
-- The Drive database is one JSON file, usually track2crack-database.json.
-- Run the app through http://localhost:8080 for Google sign-in; opening index.html directly as file:// will not allow OAuth.
-- See GOOGLE_DRIVE_SETUP.md for setup steps.
+v1.8 uses Firebase Cloud Firestore for multi-device sync:
+- Sign in from Settings.
+- Save Local DB to Cloud from the first device.
+- Load Cloud DB on any new device.
 
-Manual JSON Export/Import remains available from the sidebar and Settings.
+JSON export/import remains available as a manual backup.
