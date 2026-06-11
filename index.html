@@ -1,47 +1,24 @@
 
-<!DOCTYPE html>
-<html><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Track2Crack v1.2</title>
-<link rel="stylesheet" href="css/style.css">
-</head>
+<!doctype html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Track2Crack Next Release</title>
+<link rel="stylesheet" href="css/style.css"></head>
 <body>
-<div class="sidebar">
-<h1>🎯 Track2Crack</h1>
-<ul>
-<li>🏠 Mission Control</li>
-<li>📚 Lectures</li>
-<li>📰 Current Affairs</li>
-<li>📅 Planner</li>
-<li>📊 Analytics</li>
-<li>🏆 Profile</li>
-</ul>
-</div>
-<div class="main">
-<div class="hero">
-<h2>MISSION 150</h2>
-<div id="day"></div>
-<div id="countdown"></div>
-</div>
-<div class="cards">
-<div class="card"><h3>Priority 1</h3><p id="p1"></p></div>
-<div class="card"><h3>Priority 2</h3><p id="p2"></p></div>
-<div class="card"><h3>Priority 3</h3><p id="p3"></p></div>
-<div class="card"><h3>🔥 Streak</h3><p id="streak"></p></div>
-</div>
-<div class="panel">
-<h2>Today's Mission</h2>
-<label><input type="checkbox"> Revision</label>
-<label><input type="checkbox"> MCQs</label>
-<label><input type="checkbox"> Answer Writing</label>
-<label><input type="checkbox"> Priority 1 Lecture</label>
-<label><input type="checkbox"> Priority 2 Lecture</label>
-</div>
-<div class="panel">
-<h2>Planner</h2>
-<ul id="planner"></ul>
-</div>
-</div>
+<aside class="side"><h2>🎯 Track2Crack</h2>
+<button onclick="saveSettings()">Save Settings</button>
+</aside>
+<main>
+<h1>Mission Control</h1>
+<div id="summary"></div>
+<section class="cfg">
+<label>Priority 1 <input id="p1"></label>
+<label>Priority 2 <input id="p2"></label>
+<label>Priority 3 <input id="p3"></label>
+</section>
+<h2>Today's Planner</h2>
+<ul id="tasks"></ul>
+</main>
+<script src="js/storage.js"></script>
+<script src="js/planner.js"></script>
 <script src="js/app.js"></script>
 </body></html>
